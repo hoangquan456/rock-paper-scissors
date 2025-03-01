@@ -5,6 +5,7 @@ function getComputerChoice() {
     return "scissors";
 }
 
+
 function getHumanChoice() {
     let decision = prompt("Make your decision (R)ock, (P)aper, (S)cissors").toUpperCase();
     if (decision == "R") return "rock";
@@ -15,10 +16,38 @@ function getHumanChoice() {
         return getHumanChoice();
     }
 }
+
+function announce(announcement, c1, c2) {
+    if (announcement == "lose") 
+        ++computerScore;
+    else 
+        ++humanScore;
+    alert(`You ${announcement}! ${c1} beats ${c2}`);
+}
+
+function playRound(human, computer) {
+    if (human == computer) {
+        alert("You draw!");
+    }
+    else {
+        if ((human == "rock" && computer == "paper") || (human == "paper" && computer == "scissors") || (human == "scissors" && computer == "rock"))
+            announce("lose", computer, human);
+        else 
+        announce("win", human, computer); 
+    }
+}
 let humanScore = 0, computerScore = 0;
 
+function playGame() {
+    for(let i = 0; i < 5; ++i) {
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+    if (humanScore > computerScore) 
+        alert("You win the game");
+    else 
+        alert("You lose the game");
+}
 
-
-playRound(getHumanChoice(), getComputerChoice()); 
+playGame();
 
 // console.log(getHumanChoice());
